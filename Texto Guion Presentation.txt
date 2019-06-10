@@ -1,0 +1,15 @@
+START:
+Welcome everybody, thank your for attending my presentation!
+Mi name is Luis Martinez and today I will be presenting the topic: Automation testing, the basics of testing and what is needed to automate your manual testing.
+
+EXAMPLE: 
+Now, I will explain a little real life example to show you how do a selenium test. In this example, I have two profiles for a hotel hosting web page, the admin profile and the supplier one. Each one of them has to do the same scenario, which is create a new hotel. The steps are the same, except for the credentials and the menu displayed. In a traditional way, you have to introduce the data 'N' number of times, but with Automation, you just need to create an excel with the data, create your script, run it and Selenium will do the magic. 
+
+This example is very simple but demostrates the powerful of testing, imagine if you have 5000 same like scenarios? It would be time and resources consuming!
+
+
+CONCLUSION:
+Finally, I have to say that using Automation means no eliminate all manual testing. Instead is  
+
+That all for my presentation. Do you have any doubt or comment? 
+Thank you for your attention!
