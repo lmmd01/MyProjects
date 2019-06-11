@@ -17,7 +17,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class TestSelenium {
-    
+
 	WebDriver driver;
 	XSSFWorkbook workbook;
 	XSSFSheet sheet;
@@ -44,9 +44,15 @@ public class TestSelenium {
 		workbook = new XSSFWorkbook(fis);
 		// Load the sheet in which data is stored.
 		sheet = workbook.getSheetAt(0);
+		
+		// Message to be written in the excel sheet
+		String message; //
 
 		for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 
+			// To write data in the excel
+			FileOutputStream fos = new FileOutputStream(src);
+			
 			// Import data for Profile.
 			cell = sheet.getRow(i).getCell(0);
 			cell.setCellType(Cell.CELL_TYPE_STRING);
@@ -78,45 +84,38 @@ public class TestSelenium {
 
 			// Implicit wait
 			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-			
-			//To write data in the excel 
-			 FileOutputStream fos=new FileOutputStream(src);
-			 //Message to be written in the excel sheet 
-			 String message;; //
-			
 
 			if (driver.findElement(By.id("account")).isDisplayed()) {
-			    
+
 				// To click on Hotels dropdown
 				driver.findElement(By.cssSelector("a[href*='#Hotels']")).click();
 				// To click on Hotels sub-dropdown
 				driver.findElement(By.cssSelector("a[href*='hotels']")).click();
 
-                /*
-                --ADMIN
-				driver.findElement(By.cssSelector("a[href*='https://www.phptravels.net/" +
-				profile + "-portal/" + profile + "/hotels']")).click();
-                --SUPPLIER
-				driver.findElement(By.cssSelector("a[href*='https://www.phptravels.net/" +
-				profile + "/hotels']")).click();
-                */
+				/*
+				 * --ADMIN
+				 * driver.findElement(By.cssSelector("a[href*='https://www.phptravels.net/" +
+				 * profile + "-portal/" + profile + "/hotels']")).click(); --SUPPLIER
+				 * driver.findElement(By.cssSelector("a[href*='https://www.phptravels.net/" +
+				 * profile + "/hotels']")).click();
+				 */
 
 				// To click on Add button
 				driver.findElement(By.cssSelector("form.add_button")).click();
 				// Implicit wait
 				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-				
+
 				// Import data for Hotel Name.
 				cell = sheet.getRow(i).getCell(4);
 				cell.setCellType(Cell.CELL_TYPE_STRING);
 				driver.findElement(By.xpath("//input[@type='text'][@name='hotelname']")).clear();
 				driver.findElement(By.xpath("//input[@type='text'][@name='hotelname']"))
 						.sendKeys(cell.getStringCellValue());
-						
+
 				// Import data for Hotel Description.
 				cell = sheet.getRow(i).getCell(5);
 				cell.setCellType(Cell.CELL_TYPE_STRING);
-				
+
 				// Implicit wait for loading Description
 				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
@@ -137,31 +136,33 @@ public class TestSelenium {
 
 				// To click on Logout button
 				driver.findElement(By.id("logout")).click();
-				
-				//Test result
+
+				// Test result
 				message = "PASSED";
 
 			} else {
 				System.out.println("Hay error.");
-				//Test result
+				// Test result
 				message = "FAILED";
 
 			}
-			 
-			 	//Create cell where data needs to be written.
-				sheet.getRow(i).createCell(8).setCellValue(message); 
-				// finally write content
-				workbook.write(fos);
-				
-				// Implicit wait for loading Description
-				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-				
-				// close the file
-                fos.close();
-			 
+
+			// Create cell where data needs to be written.
+			sheet.getRow(i).createCell(8).setCellValue(message);
+			// Finally write content
+			workbook.write(fos);
+			
+			// Implicit wait for loading Description
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+			// Close the file
+			fos.close();
 
 		}
+
+
+		// Close driver
+		//driver.quit();
 	}
 
 }
-
